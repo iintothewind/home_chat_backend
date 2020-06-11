@@ -3,10 +3,9 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "start": "gulp start",
     "build": "gulp build",
-    "eslint": "eslint --fix --ext .js,.ts src/",
-    "dryrun": "gulp build && node ./dist/app.js"
+    "start": "node ./dist/app.js",
+    "eslint": "eslint --fix --ext .js,.ts src/"
   },
   "keywords": [],
   "author": "",
