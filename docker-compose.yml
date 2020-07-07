@@ -10,7 +10,7 @@ services:
       - ./:/home/node/app
     ports:
       - "8081:8081"
-    command: "node ./dist/app.js"
+    command: "node ./build/app.js"
     networks:
       - home_chat
 networks:
