@@ -5,8 +5,8 @@ const gts = require("gulp-typescript");
 
 const tsProject = gts.createProject("tsconfig.json");
 
-const clean = () => src('dist/*', { read: false }).pipe(gClean())
-const build = () => src('src/**/*.ts').pipe(tsProject()).pipe(dest('dist', { allowEmpty: true }))
+const clean = () => src('build/*', { read: false }).pipe(gClean())
+const build = () => src('src/**/*.ts').pipe(tsProject()).pipe(dest('build', { allowEmpty: true }))
 
 const nodemon = () => gNodemon({
   inspect: true,

@@ -10,11 +10,12 @@ mqttClient.on('error', error => console.warn('mqtt error: '.concat(error.message
 const sendMessage: Router.IMiddleware = ctx => {
   const msg: Message = ctx.request.body as Message
   if (msg.content) {
-    const message = {
-      'sender': msg.sender || cfg.mqtt.sender,
-      'moment': msg.moment || moment().format('x'),
-      'content': msg.content,
-      'topic': msg.topic || cfg.mqtt.topic
+    const message:Message = {
+      topic: msg.topic || cfg.mqtt.topic,
+      moment: msg.moment || moment().format('x'),
+      sender: msg.sender || cfg.mqtt.sender,
+      category: msg.category || cfg.mqtt.category,
+      content: msg.content,
     }
     mqttClient.publish(message.topic, JSON.stringify(message), { qos: 2 }, error => {
       if (error) {

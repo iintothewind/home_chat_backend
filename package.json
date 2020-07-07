@@ -1,15 +1,27 @@
 {
   "name": "home_chat_backend",
   "description": "",
-  "main": "src/app.js",
+  "main": "src/app.ts",
+  "private": true,
   "scripts": {
     "build": "gulp build",
-    "start": "node ./dist/app.js",
+    "start": "ts-node src/app.ts",
     "eslint": "eslint --fix --ext .js,.ts src/"
   },
   "keywords": [],
-  "author": "",
+  "author": "iintothewind",
   "license": "ISC",
+  "dependencies": {
+    "koa": "^2.12.0",
+    "koa-body": "^4.1.3",
+    "koa-compress": "^4.0.1",
+    "koa-favicon": "^2.1.0",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^9.0.1",
+    "koa2-cors": "^2.0.6",
+    "moment": "^2.26.0",
+    "mqtt": "^4.1.0"
+  },
   "devDependencies": {
     "@types/koa": "^2.11.3",
     "@types/koa-compress": "^4.0.0",
@@ -26,16 +38,5 @@
     "gulp-nodemon": "^2.5.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "typescript": "^3.9.5"
-  },
-  "dependencies": {
-    "koa": "^2.12.0",
-    "koa-body": "^4.1.3",
-    "koa-compress": "^4.0.1",
-    "koa-favicon": "^2.1.0",
-    "koa-logger": "^3.2.1",
-    "koa-router": "^9.0.1",
-    "koa2-cors": "^2.0.6",
-    "moment": "^2.26.0",
-    "mqtt": "^4.1.0"
   }
 }
