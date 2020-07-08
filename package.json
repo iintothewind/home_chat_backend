@@ -6,7 +6,7 @@
   "scripts": {
     "build": "gulp build",
     "start": "ts-node src/app.ts",
-    "eslint": "eslint --fix --ext .js,.ts src/"
+    "lint": "eslint --fix --ext .js,.ts src/"
   },
   "keywords": [],
   "author": "iintothewind",

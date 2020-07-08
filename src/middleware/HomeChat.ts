@@ -2,7 +2,7 @@ import * as Router from 'koa-router';
 import { connect, MqttClient } from 'mqtt'
 import * as moment from 'moment'
 import Message from '../model/message'
-import { default as cfg } from '../config'
+import { cfg } from '../util'
 
 const mqttClient: MqttClient = connect(cfg.mqtt.url, { clean: true, clientId: cfg.mqtt.sender })
 mqttClient.on('error', error => console.warn('mqtt error: '.concat(error.message)))
@@ -10,7 +10,7 @@ mqttClient.on('error', error => console.warn('mqtt error: '.concat(error.message
 const sendMessage: Router.IMiddleware = ctx => {
   const msg: Message = ctx.request.body as Message
   if (msg.content) {
-    const message:Message = {
+    const message: Message = {
       topic: msg.topic || cfg.mqtt.topic,
       moment: msg.moment || moment().format('x'),
       sender: msg.sender || cfg.mqtt.sender,

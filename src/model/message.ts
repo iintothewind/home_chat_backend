@@ -1,6 +1,4 @@
 
-export type Category = 'plain' | 'markdown'
-
 export default interface Message {
   readonly topic: string
   readonly moment: string
