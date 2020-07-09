@@ -3,6 +3,7 @@ import * as logger from 'koa-logger'
 import * as compress from 'koa-compress'
 import * as cors from 'koa2-cors'
 import { router } from './route'
+import { cfg } from './util'
 
 const app = new Koa()
 
@@ -20,4 +21,4 @@ app
   .use(cors())
   .use(router.routes())
   .use(router.allowedMethods())
-  .listen(8081)
+  .listen(cfg.port)
