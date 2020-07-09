@@ -21,7 +21,8 @@
     "koa-router": "^9.0.1",
     "koa2-cors": "^2.0.6",
     "moment": "^2.26.0",
-    "mqtt": "^4.1.0"
+    "mqtt": "^4.1.0",
+    "typescript": "^3.9.5"
   },
   "devDependencies": {
     "@types/koa": "^2.11.3",
@@ -37,7 +38,6 @@
     "gulp-clean": "^0.4.0",
     "gulp-cli": "^2.3.0",
     "gulp-nodemon": "^2.5.0",
-    "gulp-typescript": "^6.0.0-alpha.1",
-    "typescript": "^3.9.5"
+    "gulp-typescript": "^6.0.0-alpha.1"
   }
 }
