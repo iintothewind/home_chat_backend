@@ -32,7 +32,8 @@
   "overrides": [
     {
       "files": [
-        "*.js"
+        "*.js",
+        "*.ts"
       ],
       "rules": {
         "no-unused-expressions": "off",
