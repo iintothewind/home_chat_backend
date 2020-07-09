@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "gulp build",
-    "start": "ts-node src/app.ts",
+    "start": "node ./build/app.js",
     "lint": "eslint --fix --ext .js,.ts src/"
   },
   "keywords": [],
