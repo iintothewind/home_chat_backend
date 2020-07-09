@@ -7,10 +7,10 @@ const acquireToken: Router.IMiddleware = async ctx => {
   const { code } = ctx.query as { code?: string }
   if (code) {
     if (cfg.auth.clientId && cfg.auth.clientSecret) {
-      const parms = new URLSearchParams({ client_id: cfg.auth.clientId, client_secret: cfg.auth.clientSecret, code: code })
+      const params = new URLSearchParams({ client_id: cfg.auth.clientId, client_secret: cfg.auth.clientSecret, code: code })
       const headers = { 'Accept': 'application/json' }
       const instance = axios.create()
-      await instance.post<{ access_token?: string }>('https://github.com/login/oauth/access_token', null, { params: parms, headers: headers })
+      await instance.post<{ access_token?: string }>('https://github.com/login/oauth/access_token', null, { params: params, headers: headers })
         .then(resp => {
           ctx.status = resp.data.access_token ? 200 : 500
           ctx.body = resp.data
@@ -38,10 +38,10 @@ const retrieveUser: Router.IMiddleware = async ctx => {
   const { code } = ctx.query as { code?: string }
   if (code) {
     if (cfg.auth.clientId && cfg.auth.clientSecret && cfg.origin) {
-      const parms = new URLSearchParams({ client_id: cfg.auth.clientId, client_secret: cfg.auth.clientSecret, code: code })
+      const params = new URLSearchParams({ client_id: cfg.auth.clientId, client_secret: cfg.auth.clientSecret, code: code })
       const headers = { 'Accept': 'application/json' }
       const instance = axios.create()
-      await instance.post<{ access_token?: string }>('https://github.com/login/oauth/access_token', null, { params: parms, headers: headers })
+      await instance.post<{ access_token?: string }>('https://github.com/login/oauth/access_token', null, { params: params, headers: headers })
         .then(resp => resp.data.access_token ? Promise.resolve(resp.data.access_token) : Promise.reject(resp.data))
         .then(token => instance.get<User>('https://api.github.com/user', { headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${token}`, 'Origin': cfg.origin } }))
         .then(resp => {
