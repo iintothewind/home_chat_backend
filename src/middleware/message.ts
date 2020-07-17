@@ -4,7 +4,7 @@ import * as moment from 'moment'
 import Message from '../model/message'
 import { cfg } from '../util'
 
-const mqttClient: MqttClient = connect(cfg.mqtt.url, { clean: true, clientId: cfg.mqtt.sender })
+const mqttClient: MqttClient = connect(cfg.mqtt.url, { clean: true, clientId: cfg.mqtt.sender, rejectUnauthorized: false })
 mqttClient.on('error', error => console.warn('mqtt error: '.concat(error.message)))
 
 const sendMessage: Router.IMiddleware = ctx => {
