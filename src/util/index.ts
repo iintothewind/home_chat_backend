@@ -1,7 +1,7 @@
 
 const cfg = {
   mqtt: {
-    url: process.env.PORT ? 'mqtts://mqtt.eclipse.org:8883' : 'mqtt://192.168.0.147:1883',
+    url: process.env.PORT ? 'mqtts://mqtt.ivarchen.xyz:8883' : 'mqtt://192.168.0.147:1883',
     topicPrefix: 'home_chat/',
     defaultTopic: 'home_chat/general',
     sender: 'api',
