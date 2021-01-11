@@ -1,11 +1,10 @@
-import * as Router from 'koa-router';
-import { connect, MqttClient } from 'mqtt'
-import * as moment from 'moment'
+import Router from 'koa-router';
+import moment from 'moment'
 import Message from '../model/message'
 import { cfg } from '../util'
+import { mqttClient } from '../util/mqtt'
+import { loadPreviousMessages } from '../util/redis'
 
-const mqttClient: MqttClient = connect(cfg.mqtt.url, { clean: true, clientId: cfg.mqtt.sender, rejectUnauthorized: false })
-mqttClient.on('error', error => console.warn('mqtt error: '.concat(error.message)))
 
 const sendMessage: Router.IMiddleware = ctx => {
   const msg: Message = ctx.request.body as Message
@@ -31,4 +30,15 @@ const sendMessage: Router.IMiddleware = ctx => {
   }
 }
 
-export { sendMessage }
+const loadHistory: Router.IMiddleware = async ctx => {
+  const { topic, before } = ctx.query as { topic?: string, before?: string }
+  if (topic && before) {
+    const messages = await loadPreviousMessages(topic, before)
+    ctx.body = { messages: messages }
+  } else {
+    ctx.status = 400
+    ctx.body = { error: 'request parameters: topic and moment are required' }
+  }
+}
+
+export { sendMessage, loadHistory }

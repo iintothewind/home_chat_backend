@@ -1,7 +1,9 @@
 version: "3"
 services:
   node:
+    container_name: "home_chat_node"
     image: "node:14"
+    privileged: false
     user: "node"
     working_dir: /home/node/app
     environment:
@@ -13,6 +15,7 @@ services:
     command: "node ./build/app.js"
     networks:
       - home_chat
+
 networks:
   home_chat:
     external: true

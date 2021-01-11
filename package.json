@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "ioredis": "^4.19.4",
     "koa": "^2.13.0",
     "koa-body": "^4.2.0",
     "koa-compress": "^5.0.1",
@@ -25,6 +26,7 @@
     "typescript": "^3.9.7"
   },
   "devDependencies": {
+    "@types/ioredis": "^4.17.11",
     "@types/koa": "^2.11.3",
     "@types/koa-compress": "^4.0.0",
     "@types/koa-logger": "^3.1.1",
