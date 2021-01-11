@@ -11,7 +11,7 @@ const cfg = {
   redis: {
     host: process.env.PORT ? 'home-chat.ivarchen.xyz' : '192.168.0.147',
     port: process.env.PORT ? 16379 : 6379,
-    password: 'admin',
+    password: process.env.PORT ? process.env.REDIS_PASSWORD : 'admin',
     pageCount: 50
   },
   auth: {
