@@ -11,7 +11,7 @@ const sendMessage: Router.IMiddleware = ctx => {
   if (msg.content) {
     const message: Message = {
       topic: `${cfg.mqtt.topicPrefix}${msg.topic}` || cfg.mqtt.defaultTopic,
-      moment: msg.moment || moment().format('x'),
+      moment: msg.moment || Number(moment().format('x')),
       sender: msg.sender || cfg.mqtt.sender,
       category: msg.category || cfg.mqtt.category,
       content: msg.content,
