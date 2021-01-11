@@ -37,7 +37,7 @@ const loadHistory: Router.IMiddleware = async ctx => {
     ctx.body = { messages: messages }
   } else {
     ctx.status = 400
-    ctx.body = { error: 'request parameters: topic and moment are required' }
+    ctx.body = { error: 'request parameters: topic and before (epoch_millis) are required' }
   }
 }
 
