@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import moment from 'moment'
+import * as moment from 'moment'
 import Message from '../model/message'
 import { cfg } from '../util'
 import { mqttClient } from '../util/mqtt'
