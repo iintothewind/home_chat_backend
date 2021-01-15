@@ -3,7 +3,7 @@ import IORedis from 'ioredis'
 import Message from '../model/message'
 import { cfg } from '../util'
 
-const redis = new IORedis({ host: cfg.redis.host, port: cfg.redis.port, password: cfg.redis.password })
+const redis = new IORedis({ host: cfg.host, port: cfg.redis.port, password: cfg.redis.password })
 
 const enqueue = async (topic: string, message: string): Promise<string> => {
   console.log(`enqueue topic: ${topic}, message: ${message}`)

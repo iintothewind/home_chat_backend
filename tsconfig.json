@@ -9,12 +9,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./build",
-    "alwaysStrict": false,
+    "alwaysStrict": true,
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
     "noImplicitAny": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "sourceMap": true,
     "target": "es5"
   }
