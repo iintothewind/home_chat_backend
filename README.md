@@ -7,6 +7,8 @@ It can be deployed in x86(pc) and armv7(respberrypi) docker containers.
 
 - `npm install typescript ts-node gulp`
 
+- `gulp build`
+
 - `docker network create home_chat`
 
 - `docker-compose up -d`
