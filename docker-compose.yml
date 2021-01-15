@@ -30,6 +30,8 @@ services:
       - CLIENT_ID=
       - CLIENT_SECRET=
     volumes:
+      - ./etc/cert/key.pem:/etc/cert/key.pem
+      - ./etc/cert/cert.pem:/etc/cert/cert.pem
       - ./:/home/node/app
     ports:
       - "8081:8081"

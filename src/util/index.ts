@@ -2,7 +2,7 @@ import * as fs from 'fs'
 
 const cfg = {
   mqtt: {
-    url: process.env.SERVICE_PROVIDER === 'vultr' ? 'mqtts://mqtt.ivarchen.xyz:8883' : 'mqtt://192.168.0.147:1883',
+    url: process.env.SERVICE_PROVIDER === 'vultr' ? 'mqtt://home_chat_emqx:1883' : 'mqtt://192.168.0.147:1883',
     topicPrefix: 'home_chat/',
     defaultTopic: 'home_chat/general',
     wildcardTopic: 'home_chat/#',
@@ -10,6 +10,7 @@ const cfg = {
     category: 'plain'
   },
   redis: {
+    host: process.env.SERVICE_PROVIDER === 'vultr' ? 'home_chat_redis' : '192.168.0.147',
     port: process.env.SERVICE_PROVIDER === 'vultr' ? 16379 : 6379,
     password: process.env.SERVICE_PROVIDER === 'vultr' ? process.env.REDIS_PASSWORD : 'admin',
     pageCount: 50
