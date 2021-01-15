@@ -34,7 +34,6 @@ services:
       - ./etc/cert/cert.pem:/etc/cert/cert.pem
       - ./:/home/node/app
     ports:
-      - "8081:8081"
       - "8443:8443"
     command: "node ./build/app.js"
     networks:
