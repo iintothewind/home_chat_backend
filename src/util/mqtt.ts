@@ -1,4 +1,5 @@
 import { cfg } from '../util'
+import * as https from 'https'
 import axios from 'axios'
 import { enqueue } from '../util/redis'
 import { Message, Translation } from '../model'
@@ -10,6 +11,11 @@ const consumeDict = (topic: string, message: Message) => {
     const word = message.content.substr(cfg.dict.operation.length)
     const headers = { 'Accept': 'application/json' }
     axios
+      .create({
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false
+        })
+      })
       .get<Translation>(`https://${cfg.dict.host}:${cfg.dict.port}/home_dict/translate`, { params: new URLSearchParams({ user: user, word: word }), headers: headers })
       .then(resp => `单词: ${resp.data.word} \n读音: ${resp.data.phonetic} \n英义: ${resp.data.definition} \n翻译: ${resp.data.translation} \n变换: ${resp.data.exchange}`)
       .then(translation => axios.post<Message>(`https://localhost:${cfg.https.port}/home_chat/message`, { topic: topic, content: translation } as Message))
