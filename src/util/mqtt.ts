@@ -39,11 +39,11 @@ mqttClient
   .on('message', (_topic, buffer) => {
     const payload = buffer.toString()
     const message = JSON.parse(payload)
-    enqueue(_topic, payload).catch(error => {
+    enqueue(_topic, payload).then(_ => consumeDict(_topic, message)).catch(error => {
       if (error) {
-        console.error(`equeue error: ${error}`)
+        console.error(`consume message error: ${error}`)
       }
-    }).then(_ => consumeDict(_topic, message))
+    })
   })
 
 export { mqttClient }
