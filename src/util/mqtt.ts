@@ -1,15 +1,8 @@
-import { cfg } from '../util'
-import * as https from 'https'
-import axios from 'axios'
+import { cfg, axiosInstance } from '../util'
 import { enqueue } from '../util/redis'
 import { Message, Translation } from '../model'
 import { connect, MqttClient } from 'mqtt'
 
-const axiosInstance = axios.create({
-  httpsAgent: new https.Agent({
-    rejectUnauthorized: false
-  })
-})
 
 const consumeDict = (topic: string, message: Message) => {
   if (topic && message && message.content && message.content.startsWith(cfg.dict.operation)) {
@@ -19,6 +12,7 @@ const consumeDict = (topic: string, message: Message) => {
     axiosInstance
       .get<Translation>(`https://${cfg.dict.host}:${cfg.dict.port}/home_dict/translate`, { params: new URLSearchParams({ user: user, word: word }), headers: headers })
       .then(resp => `单词: ${resp.data.word} 读音: ${resp.data.phonetic} \n英义: \n${resp.data.definition} \n翻译: \n${resp.data.translation} \n变换: \n${resp.data.exchange}`)
+      .catch((error: Error) => `lookup word: ${word} error: ${error.message}`)
       .then(translation => axiosInstance.post<Message>(
         `https://localhost:${cfg.https.port}/home_chat/message`,
         { topic: topic.startsWith(cfg.mqtt.topicPrefix) ? topic.substr(cfg.mqtt.topicPrefix.length) : topic, content: translation } as Message))

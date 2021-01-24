@@ -1,6 +1,6 @@
 import axios from 'axios'
 import * as moment from 'moment'
-import { cfg } from './util'
+import { axiosInstance, cfg } from './util'
 import { Message, Translation } from './model'
 
 
@@ -16,10 +16,11 @@ const loadHistory = async () => {
 const lookup = async (word: string) => {
   const headers = { 'Accept': 'application/json' }
   const params = new URLSearchParams({ user: 'ivar', word: word })
-  axios
+  axiosInstance
     .get<Translation>(`https://${cfg.dict.host}:${cfg.dict.port}/home_dict/translate`, { params: params, headers: headers })
     .then(response => console.log(`translation: ${JSON.stringify(response.data)}`))
+    .catch((error: Error) => console.log(`error: ${error.message}`))
 }
 
 // loadHistory()
-lookup('word')
+lookup('jjjword')

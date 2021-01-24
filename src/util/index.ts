@@ -1,4 +1,6 @@
 import * as fs from 'fs'
+import * as https from 'https'
+import axios from 'axios'
 
 const cfg = {
   mqtt: {
@@ -35,4 +37,10 @@ const cfg = {
   host: process.env.SERVICE_PROVIDER === 'vultr' ? 'home-chat.ivarchen.xyz' : '192.168.0.147'
 }
 
-export { cfg }
+const axiosInstance = axios.create({
+  httpsAgent: new https.Agent({
+    rejectUnauthorized: false
+  })
+})
+
+export { cfg, axiosInstance }
