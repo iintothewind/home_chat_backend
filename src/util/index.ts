@@ -19,7 +19,12 @@ const cfg = {
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
   },
-http: {
+  dict: {
+    operation: '@dict ',
+    host: process.env.SERVICE_PROVIDER === 'vultr' ? 'home_dict_node' : 'ivarchen.xyz',
+    port: 7443,
+  },
+  http: {
     port: 8081,
   },
   https: {

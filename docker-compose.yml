@@ -35,7 +35,7 @@ services:
       - ./:/home/node/app
     ports:
       - "8443:8443"
-    command: "node ./build/app.js"
+    command: "npm run start"
     networks:
       - home_chat
 

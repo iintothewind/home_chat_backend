@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import * as moment from 'moment'
-import Message from '../model/message'
+import { Message } from '../model'
 import { cfg } from '../util'
 import { mqttClient } from '../util/mqtt'
 import { loadPreviousMessages } from '../util/redis'
@@ -23,7 +23,7 @@ const sendMessage: Router.IMiddleware = ctx => {
         ctx.body = { error: 'publish failed: '.concat(error.message) }
       }
     })
-    ctx.body = { message: message }
+    ctx.body = message
   } else {
     ctx.status = 400
     ctx.body = { error: 'message content is required' }

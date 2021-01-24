@@ -1,6 +1,6 @@
 
 import IORedis from 'ioredis'
-import Message from '../model/message'
+import { Message } from '../model'
 import { cfg } from '../util'
 
 const redis = new IORedis({ host: cfg.host, port: cfg.redis.port, password: cfg.redis.password })
