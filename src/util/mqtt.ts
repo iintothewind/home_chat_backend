@@ -7,16 +7,18 @@ import { connect, MqttClient } from 'mqtt'
 const consumeDict = (topic: string, message: Message) => {
   if (topic && message && message.content && message.content.startsWith(cfg.dict.operation)) {
     const user = message.sender
-    const word = message.content.substr(cfg.dict.operation.length)
+    const word = message.content.substr(cfg.dict.operation.length, cfg.dict.maxWordLength).trim()
     const headers = { 'Accept': 'application/json' }
-    axiosInstance
-      .get<Translation>(`https://${cfg.dict.host}:${cfg.dict.port}/home_dict/translate`, { params: new URLSearchParams({ user: user, word: word }), headers: headers })
-      .then(resp => `单词: ${resp.data.word} 读音: ${resp.data.phonetic} \n英义: \n${resp.data.definition} \n翻译: \n${resp.data.translation} \n变换: \n${resp.data.exchange}`)
-      .catch((error: Error) => `lookup word: ${word} error: ${error.message}`)
-      .then(translation => axiosInstance.post<Message>(
-        `https://localhost:${cfg.https.port}/home_chat/message`,
-        { topic: topic.startsWith(cfg.mqtt.topicPrefix) ? topic.substr(cfg.mqtt.topicPrefix.length) : topic, content: translation } as Message))
-      .catch(error => console.log(`error in conumeDict: ${error}`))
+    if (user && word) {
+      axiosInstance
+        .get<Translation>(`https://${cfg.dict.host}:${cfg.dict.port}/home_dict/translate`, { params: new URLSearchParams({ user: user, word: word }), headers: headers })
+        .then(resp => `单词: ${resp.data.word} 读音: ${resp.data.phonetic} \n英义: \n${resp.data.definition} \n翻译: \n${resp.data.translation} \n变换: \n${resp.data.exchange}`)
+        .catch((error: Error) => `lookup word: ${word} error: ${error.message}`)
+        .then(translation => axiosInstance.post<Message>(
+          `https://localhost:${cfg.https.port}/home_chat/message`,
+          { topic: topic.startsWith(cfg.mqtt.topicPrefix) ? topic.substr(cfg.mqtt.topicPrefix.length) : topic, content: translation } as Message))
+        .catch(error => console.log(`error in conumeDict: ${error}`))
+    }
   }
 }
 

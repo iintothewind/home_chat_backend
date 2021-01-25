@@ -25,6 +25,7 @@ const cfg = {
     operation: '@dict ',
     host: process.env.SERVICE_PROVIDER === 'vultr' ? 'home_dict_node' : 'ivarchen.xyz',
     port: 7443,
+    maxWordLength: 64,
   },
   http: {
     port: 8081,
