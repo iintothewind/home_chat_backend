@@ -1,6 +1,7 @@
 import * as Router from 'koa-router';
 import { cfg, axiosInstance } from '../util'
 import { URLSearchParams } from 'url'
+import { AxiosError } from 'axios';
 
 const acquireToken: Router.IMiddleware = async ctx => {
   const { code } = ctx.query as { code?: string }
@@ -46,9 +47,9 @@ const retrieveUser: Router.IMiddleware = async ctx => {
           ctx.status = 200
           ctx.body = resp.data
         })
-        .catch(error => {
+        .catch((error: AxiosError) => {
           ctx.status = 500
-          ctx.body = error
+          ctx.body = error.response ? error.response.data : error.message
         })
     } else {
       ctx.status = 500
