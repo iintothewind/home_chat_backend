@@ -12,12 +12,12 @@ const consumeDict = (topic: string, message: Message) => {
     const headers = { 'Accept': 'application/json' }
     if (user && word) {
       axiosInstance
-        .get<Translation>(`https://${cfg.dict.host}:${cfg.dict.port}/home_dict/translate`, { params: new URLSearchParams({ user: user, word: word }), headers: headers })
-        .then(resp => `单词: ${resp.data.word} 读音: ${resp.data.phonetic} \n英义: \n${resp.data.definition} \n翻译: \n${resp.data.translation} \n变换: \n${resp.data.exchange}`)
+        .get<Translation>(`https://${cfg.dict.host}:${cfg.dict.port}/home_dict/lookup`, { params: new URLSearchParams({ user: user, word: word }), headers: headers })
+        .then(resp => `- 单词: ${resp.data.word} [${resp.data.phonetic}] \n- 英义: \n${resp.data.definition} \n- 翻译: \n${resp.data.translation} \n- 时态: \n${resp.data.exchange}`)
         .catch((error: AxiosError) => `lookup word: ${word} failed with: ${error.response ? JSON.stringify(error.response.data) : error.message}`)
         .then(translation => axiosInstance.post<Message>(
           `https://localhost:${cfg.https.port}/home_chat/message`,
-          { topic: topic.startsWith(cfg.mqtt.topicPrefix) ? topic.substr(cfg.mqtt.topicPrefix.length) : topic, content: translation } as Message))
+          { topic: topic.startsWith(cfg.mqtt.topicPrefix) ? topic.substr(cfg.mqtt.topicPrefix.length) : topic, content: translation, category: 'markdown' } as Message))
         .catch(error => console.log(`error in consumeDict: ${error}`))
     }
   }
