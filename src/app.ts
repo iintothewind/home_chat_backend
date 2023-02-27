@@ -25,7 +25,7 @@ app
   .use(router.allowedMethods())
   .use(router.routes())
 
-if (process.env.SERVICE_PROVIDER === 'vultr') {
+if (process.env.SERVICE_PROVIDER === 'remote') {
   app.use(enforceHttps(cfg.host, String(cfg.https.port)))
   http.createServer(app.callback()).listen(cfg.http)
   https.createServer({ key: cfg.https.key, cert: cfg.https.cert }, app.callback()).listen(cfg.https)

@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const cfg = {
   mqtt: {
-    url: process.env.SERVICE_PROVIDER === 'vultr' ? 'mqtt://home_chat_emqx:1883' : 'mqtt://192.168.0.147:1883',
+    url: process.env.SERVICE_PROVIDER === 'remote' ? 'mqtt://home_chat_emqx:1883' : 'mqtt://192.168.0.147:1883',
     topicPrefix: 'home_chat/',
     defaultTopic: 'home_chat/general',
     wildcardTopic: 'home_chat/#',
@@ -12,9 +12,9 @@ const cfg = {
     category: 'plain'
   },
   redis: {
-    host: process.env.SERVICE_PROVIDER === 'vultr' ? 'home_chat_redis' : '192.168.0.147',
-    port: process.env.SERVICE_PROVIDER === 'vultr' ? 16379 : 6379,
-    password: process.env.SERVICE_PROVIDER === 'vultr' ? process.env.REDIS_PASSWORD : 'admin',
+    host: process.env.SERVICE_PROVIDER === 'remote' ? 'home_chat_redis' : '192.168.0.147',
+    port: process.env.SERVICE_PROVIDER === 'remote' ? 16379 : 6379,
+    password: process.env.SERVICE_PROVIDER === 'remote' ? process.env.REDIS_PASSWORD : 'admin',
     pageCount: 50
   },
   auth: {
@@ -23,7 +23,7 @@ const cfg = {
   },
   dict: {
     operation: '/dict ',
-    host: process.env.SERVICE_PROVIDER === 'vultr' ? 'home_dict_node' : 'ivarchen.xyz',
+    host: process.env.SERVICE_PROVIDER === 'remote' ? 'home_dict_node' : 'ivarchen.xyz',
     port: 7443,
     maxWordLength: 64,
   },
@@ -31,11 +31,11 @@ const cfg = {
     port: 8081,
   },
   https: {
-    key: fs.readFileSync(process.env.SERVICE_PROVIDER === 'vultr' ? '/etc/cert/key.pem' : './etc/cert/key.pem'),
-    cert: fs.readFileSync(process.env.SERVICE_PROVIDER === 'vultr' ? '/etc/cert/cert.pem' : './etc/cert/cert.pem'),
+    key: fs.readFileSync(process.env.SERVICE_PROVIDER === 'remote' ? '/etc/cert/key.pem' : './etc/cert/key.pem'),
+    cert: fs.readFileSync(process.env.SERVICE_PROVIDER === 'remote' ? '/etc/cert/cert.pem' : './etc/cert/cert.pem'),
     port: 8443,
   },
-  host: process.env.SERVICE_PROVIDER === 'vultr' ? 'home-chat.ivarchen.xyz' : '192.168.0.147'
+  host: process.env.SERVICE_PROVIDER === 'remote' ? 'home-chat.ivarchen.xyz' : '192.168.0.147'
 }
 
 const axiosInstance = axios.create({

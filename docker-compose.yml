@@ -24,7 +24,7 @@ services:
     user: "node"
     working_dir: /home/node/app
     environment:
-      - SERVICE_PROVIDER=vultr
+      - SERVICE_PROVIDER=remote
       - NODE_ENV=production
       - REDIS_PASSWORD=
       - CLIENT_ID=
