@@ -35,7 +35,7 @@ const cfg = {
     cert: fs.readFileSync(process.env.SERVICE_PROVIDER === 'remote' ? '/etc/cert/cert.pem' : './etc/cert/cert.pem'),
     port: 8443,
   },
-  host: process.env.SERVICE_PROVIDER === 'remote' ? 'home-chat.ivarchen.xyz' : '192.168.0.147'
+  host: process.env.SERVICE_PROVIDER === 'remote' ? '121.5.128.159' : '192.168.0.147'
 }
 
 const axiosInstance = axios.create({

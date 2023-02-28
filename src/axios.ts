@@ -9,7 +9,7 @@ const loadHistory = async () => {
   const params = new URLSearchParams({ topic: 'home_chat/sarah_home', before: before })
   const headers = { 'Accept': 'application/json' }
   axios
-    .get<{ messages: Message[] }>(`https://mqttchat.herokuapp.com/home_chat/history`, { params: params, headers: headers })
+    .get<{ messages: Message[] }>(`https://${cfg.host}:${cfg.https.port}/home_chat/history`, { params: params, headers: headers })
     .then(response => response.data.messages.forEach(message => console.log(`message: ${JSON.stringify(message)}`)))
 }
 
@@ -23,4 +23,4 @@ const lookup = async (word: string) => {
 }
 
 // loadHistory()
-lookup('jjjword')
+// lookup('word')

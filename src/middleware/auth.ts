@@ -38,11 +38,11 @@ const retrieveUser: Router.IMiddleware = async ctx => {
   if (code) {
     if (cfg.auth.clientId && cfg.auth.clientSecret && cfg.host) {
       const params = new URLSearchParams({ client_id: cfg.auth.clientId, client_secret: cfg.auth.clientSecret, code: code })
-      const origin = `https://${cfg.host}/`
+      const githubApiVersion = '2022-11-28'
       const headers = { 'Accept': 'application/json' }
       await axiosInstance.post<{ access_token?: string }>('https://github.com/login/oauth/access_token', null, { params: params, headers: headers })
         .then(resp => resp.data.access_token ? Promise.resolve(resp.data.access_token) : Promise.reject(resp.data))
-        .then(token => axiosInstance.get<User>('https://api.github.com/user', { headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${token}`, 'Origin': origin } }))
+        .then(token => axiosInstance.get<User>('https://api.github.com/user', { headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${token}`, 'X-GitHub-Api-Version': githubApiVersion } }))
         .then(resp => {
           ctx.status = 200
           ctx.body = resp.data
